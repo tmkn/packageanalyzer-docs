@@ -2,34 +2,37 @@
 sidebar_position: 1
 ---
 
-# Tutorial Intro
+# Welcome to the packageanalyzer
+![](https://raw.githubusercontent.com/tmkn/packageanalyzer/master/banner.png)
+## What?
+_A framework to introspect Node.js packages_
 
-Let's discover **Docusaurus in less than 5 minutes**.
+In a nutshell the packageanalyzer collects all metadata (typically the package.json) for the whole dependency tree.
 
-## Getting Started
+Additionally it also provides functionality to collect any extra data along the way.
 
-Get started by **creating a new site**.
+It then provides utility functions to query all that data.
 
-Or **try Docusaurus immediately** with **[new.docusaurus.io](https://new.docusaurus.io)**.
+## Why?
+Mainly security concerns.
 
-## Generate a new site
+Today Node.js is one of the most popular runtimes but that also makes it a popular target but security related aspects are not easily surfaced (as they imo should be) when dealing with Node.js packages.
+* What am I installing exactly when I add this package?
+* What exactly changed in this new version? (maintainer change?, new dependency?)
+* Does it have a postinstall script?
+* Can this package be replaced by native Node.js modules, minimizing the risk of a hostile maintainer change?
+* Am I using a deprecated package? Is there an alternative?
+* Does it use eval in the source code or other suspicious code fragments?
+* Is there an update available?
+etc.
 
-Generate a new Docusaurus site using the **classic template**:
+But I also wanted to answer questions like
+* Am I license compliant?
+* Does this package support ES modules?
+* What is the oldest dependency?
+etc.
 
-```shell
-npx @docusaurus/init@latest init my-website classic
-```
+While those are very different questions, and how you answer them differ each time, they all deal with the dependency tree. So the packageanalyzer is meant to act as a foundation by providing utility functions to traverse and collect data from the dependency tree to help answer questions like that all while being completely open source.
 
-## Start your site
-
-Run the development server:
-
-```shell
-cd my-website
-
-npx docusaurus start
-```
-
-Your site starts at `http://localhost:3000`.
-
-Open `docs/intro.md` and edit some lines: the site **reloads automatically** and display your changes.
+## How
+Please refer to [ARCHITECTURE.md](https://github.com/tmkn/packageanalyzer/blob/master/ARCHITECTURE.md) for a more in depth technical explanation.
