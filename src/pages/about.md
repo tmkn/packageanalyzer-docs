@@ -1,0 +1,2 @@
+# About
+The packageanalyzer is an [open-source](https://github.com/tmkn/packageanalyzer) library by [Thomas Klein](https://twitter.com/tmkndev) licensed under [MIT](https://opensource.org/licenses/MIT)

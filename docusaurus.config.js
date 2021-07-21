@@ -27,6 +27,7 @@ module.exports = {
           label: 'Welcome',
         },
         {to: '/blog', label: 'Blog', position: 'left'},
+        {to: '/about', label: 'About', position: 'right'},
         {
           href: 'https://github.com/tmkn/packageanalyzer-docs',
           label: 'GitHub',
