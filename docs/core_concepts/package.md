@@ -4,4 +4,4 @@ title: Package
 ---
 
 # Package
-> todo
+The `Package` class is the central
