@@ -38,7 +38,7 @@ module.exports = {
     footer: {
       style: 'dark',
       links: [
-        {
+        /*{
           title: 'Docs',
           items: [
             {
@@ -46,7 +46,7 @@ module.exports = {
               to: '/docs/intro',
             },
           ],
-        },
+        },*/
         {
           title: 'Community',
           items: [

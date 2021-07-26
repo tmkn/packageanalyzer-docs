@@ -4,6 +4,7 @@ title: Decorator
 ---
 
 # Decorator
+## Intro
 While the `packageanalyzer` itself only collects the `package.json` during the traversal of the dependency tree, it's the `Decorator` that adds any custom data along the way.
 
 This data is then also available in the [Package](./package.md) class.

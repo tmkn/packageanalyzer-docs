@@ -38,4 +38,4 @@ yarn pkga analyze --package react
 See [CLI Intro](./cli/intro.md) for more options about the functionality of the CLI.
 
 ## Using the API
-See [Using Custom Reports](./guides/custom.reports.md) to get started with using the `packageanalyzer` programmatically.
+See [Using Custom Reports](./guides/custom_reports.md) to get started with using the `packageanalyzer` programmatically.
