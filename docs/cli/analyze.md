@@ -1,5 +1,5 @@
 # Analyze 
-`todo add screenshot`
+![Analyze Screenshot](./analyze_simple.png "Analyze Screenshot")
 ## Introduction
 The `analyze` option lets you quickly introspect a particular Node.js package, e.g.:
 ```

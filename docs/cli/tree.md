@@ -2,7 +2,7 @@
 title: Tree
 ---
 # Tree 
-`todo add screenshot`
+![Tree Screenshot](./tree.png "Tree Screenshot")
 ## Introduction
 The `tree` option will print the dependency tree for a particular Node.js package, e.g.:
 ```

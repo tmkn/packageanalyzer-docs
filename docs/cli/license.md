@@ -2,11 +2,11 @@
 title: License
 ---
 # License 
-`todo add screenshot`
+![License Screenshot](./license.png "License Screenshot")
 ## Introduction
 The `license` option displays all listed licenses in a particular Node.js package, e.g.:
 ```
-pkga license --package react
+pkga license --package react --allow MIT
 ```
 This command will list the licenses for the latest version of `react`.
 
