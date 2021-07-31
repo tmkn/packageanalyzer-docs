@@ -13,7 +13,7 @@ module.exports = {
   organizationName: 'tmkn', // Usually your GitHub org/user name.
   projectName: 'packageanalyzer-docs', // Usually your repo name.
   themeConfig: {
-    image: 'https://i.imgur.com/7ZDsUZg.png',
+    image: 'https://i.imgur.com/5Ke7jFs.png',
     navbar: {
       title: 'packageanalyzer',
       /*logo: {
@@ -86,13 +86,13 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           editUrl:
-            'https://github.com/tmkn/packageanalyzer-docs/edit/master/website/',
+            'https://github.com/tmkn/packageanalyzer-docs/edit/master/',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           editUrl:
-            'https://github.com/tmkn/packageanalyzer-docs/edit/master/website/blog/',
+            'https://github.com/tmkn/packageanalyzer-docs/edit/master/blog/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
