@@ -13,7 +13,7 @@ module.exports = {
   organizationName: 'tmkn', // Usually your GitHub org/user name.
   projectName: 'packageanalyzer-docs', // Usually your repo name.
   themeConfig: {
-    image: 'img/social.png',
+    image: 'https://i.imgur.com/7ZDsUZg.png',
     navbar: {
       title: 'packageanalyzer',
       /*logo: {
