@@ -1,5 +1,6 @@
 ---
 sidebar_position: 1
+title: Intro
 ---
 
 # Welcome to the packageanalyzer
@@ -34,5 +35,5 @@ etc.
 
 While those are very different questions, and how you answer them differ each time, they all deal with the dependency tree. So the packageanalyzer is meant to act as a foundation by providing utility functions to traverse and collect data from the dependency tree to help answer questions like that all while being completely open source.
 
-## How
-Please refer to [ARCHITECTURE.md](https://github.com/tmkn/packageanalyzer/blob/master/ARCHITECTURE.md) for a more in depth technical explanation.
+## How?
+Please refer to `Core Concepts` section for a more indepth explanation

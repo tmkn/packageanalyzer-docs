@@ -13,6 +13,15 @@ module.exports = {
   organizationName: 'tmkn', // Usually your GitHub org/user name.
   projectName: 'packageanalyzer-docs', // Usually your repo name.
   themeConfig: {
+    announcementBar: {
+      id: 'support_us', // Any value that will identify this message.
+      content:
+        'As the packageanalyzer is currently a work in progress, the documentation might not be up to date in all areas!',
+      backgroundColor: '#03a9f4', // Defaults to `#fff`.
+      textColor: 'white', // Defaults to `#000`.
+      isCloseable: true, // Defaults to `true`.
+    },
+    image: 'https://i.imgur.com/5Ke7jFs.png',
     navbar: {
       title: 'packageanalyzer',
       /*logo: {
@@ -27,6 +36,7 @@ module.exports = {
           label: 'Welcome',
         },
         {to: '/blog', label: 'Blog', position: 'left'},
+        {to: '/about', label: 'About', position: 'right'},
         {
           href: 'https://github.com/tmkn/packageanalyzer-docs',
           label: 'GitHub',
@@ -37,7 +47,7 @@ module.exports = {
     footer: {
       style: 'dark',
       links: [
-        {
+        /*{
           title: 'Docs',
           items: [
             {
@@ -45,7 +55,7 @@ module.exports = {
               to: '/docs/intro',
             },
           ],
-        },
+        },*/
         {
           title: 'Community',
           items: [
@@ -84,13 +94,13 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           editUrl:
-            'https://github.com/tmkn/packageanalyzer-docs/edit/master/website/',
+            'https://github.com/tmkn/packageanalyzer-docs/edit/master/',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           editUrl:
-            'https://github.com/tmkn/packageanalyzer-docs/edit/master/website/blog/',
+            'https://github.com/tmkn/packageanalyzer-docs/edit/master/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
