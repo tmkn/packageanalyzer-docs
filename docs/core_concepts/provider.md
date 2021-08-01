@@ -15,7 +15,7 @@ export interface IPackageVersionProvider {
     getPackagesByVersion: (modules: PackageVersion[]) => AsyncIterableIterator<INpmPackageVersion>;
 }
 ```
-where `PackageVersion` is the following type:
+where `PackageVersion` is of the following type:
 ```typescript
 type PackageVersion = [name: string, version?: string];
 ```
