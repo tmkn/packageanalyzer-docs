@@ -5,7 +5,7 @@ title: Tree
 ![Tree Screenshot](./tree.png "Tree Screenshot")
 ## Introduction
 The `tree` option will print the dependency tree for a particular Node.js package, e.g.:
-```
+```bash
 pkga tree --package react
 ```
 This command will print the dependency tree for the latest version of `react`.
@@ -19,5 +19,14 @@ Argument | Description
 
 ## Example Usages
 ### Print `dependencies` tree for a particular version
+```bash
+pkga tree --package react@17.0.2
+```
 ### Print `dependencies` tree for latest version
+```bash
+pkga tree --package react
+```
 ### Print `devDependencies` tree for local project
+```bash
+pkga tree --package react@17.0.2 --type devDependencies
+```

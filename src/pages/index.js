@@ -13,6 +13,12 @@ function HomepageHeader() {
       <div className="container">
         <h1 className="hero__title">{siteConfig.title}</h1>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
+        <p className={styles.badgeContainer}>
+          <Badge img="https://img.shields.io/npm/v/@tmkn/packageanalyzer" link="https://www.npmjs.com/package/@tmkn/packageanalyzer" />
+          <Badge img="https://codecov.io/gh/tmkn/packageanalyzer/branch/master/graph/badge.svg" link="https://codecov.io/gh/tmkn/packageanalyzer" />
+          <Badge img="https://sonarcloud.io/api/project_badges/measure?project=tmkn_packageanalyzer&metric=sqale_rating" link="https://sonarcloud.io/dashboard?id=tmkn_packageanalyzer" />
+          <Badge img="https://sonarcloud.io/api/project_badges/measure?project=tmkn_packageanalyzer&metric=sqale_index" link="ttps://sonarcloud.io/dashboard?id=tmkn_packageanalyzer" />
+        </p>
         <img class={styles.heroimg} src={'./img/hero.png'} />
         <div className={styles.buttons}>
           <Link
@@ -24,6 +30,10 @@ function HomepageHeader() {
       </div>
     </header>
   );
+}
+
+function Badge({img, link}) {
+  return <a href={link} target="_blank"><img src={img} /></a>
 }
 
 export default function Home() {
