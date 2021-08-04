@@ -17,5 +17,15 @@ Argument | Description
 
 ## Example Usages
 ### Analyze a specific version
+```bash
+pkga analyze --package react@17.0.2
+```
 ### Analyze latest version
+```bash
+#omit version to default to latest version
+pkga analyze --package react
+```
 ### Analyze a local project
+```bash
+pkga analyze --folder ./path/to/package.json
+```

@@ -25,5 +25,16 @@
 }
 
 .heroimg {
-  margin-top: -3rem;
+
+}
+
+.badgeContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+.badgeContainer > a {
+  padding: 0 0.2rem;
 }
