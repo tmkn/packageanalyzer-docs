@@ -57,7 +57,7 @@ To retrieve the data simply provide the key to the `getDecoratorData` method:
 ```
 > Note that `getDecoratorData` will throw if the key doesn't exist!
 
-This was a conscious design decision so that destructoring can be used in a TypeScript environment:
+This was a conscious design decision so that destructuring can be used in a TypeScript environment:
 ```typescript
     const { published } = getDecoratorData("decorator_key");
 ```
