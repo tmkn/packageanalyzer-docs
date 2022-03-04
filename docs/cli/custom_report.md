@@ -2,7 +2,9 @@
 title: Report
 ---
 # Report 
-`todo add screenshot`
+![Custom Report Screenshot](./custom_report.png "Custom Report Screenshot")
+> Report functionality used run 2 Tree Reports (`react` and `react-dom`)
+
 ## Introduction
 The `report` option lets you run a custom or a series of custom checks, extending the built in functionality e.g.:
 ```
