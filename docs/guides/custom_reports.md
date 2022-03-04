@@ -59,12 +59,12 @@ class BasicReport {
     name = `Basic Report`; //basic name to associate the report
     pkg = [`react`]; //a tuple, will default to latest version use [`name`, `version`]
 
-    async report(pkgData, formatter) {
+    async report(pkgData, context) {
         //pkgData contains dependency tree metadata and utility functions
-        //formatter is used to output messages
+        //context contains formatters to output messages to stdin & stdou
 
         //your custom logic here
-        formatter.writeLine(`Hello from my first report analyzing ${pkgData.fullName}`);
+        context.stdoutFormatter.writeLine(`Hello from my first report analyzing ${pkgData.fullName}`);
     }
 }
 ```
@@ -102,12 +102,12 @@ Then we just need to check if we got something back, if yes, add it to the `post
 
 Then after we _visited_ all packages, we print out the results:
 ```javascript
-        formatter.writeLine(
+        stdoutFormatter.writeLine(
             `Postinstall scripts in the dependency tree of ${pkgData.fullName}: ${postinstallPackages.size}`
         );
 
         for (const [packageName, data] of postinstallPackages) {
-            formatter.writeLine(`→ ${packageName}: "${data}"`);
+            stdoutFormatter.writeLine(`→ ${packageName}: "${data}"`);
         }
 ```
 
@@ -117,7 +117,7 @@ class PostinstallReport {
     name = `Postinstall Report`;
     pkg = [`react`];
 
-    async report(pkgData, formatter) {
+    async report(pkgData, { stdoutFormatter }) {
         const postinstallPackages = new Map();
 
         pkgData.visit((pkg) => {
@@ -128,12 +128,12 @@ class PostinstallReport {
             }
         }, true);
 
-        formatter.writeLine(
+        stdoutFormatter.writeLine(
             `Postinstall scripts in the dependency tree of ${pkgData.fullName}: ${postinstallPackages.size}`
         );
 
         for (const [packageName, data] of postinstallPackages) {
-            formatter.writeLine(`→ ${packageName}: "${data}"`);
+            stdoutFormatter.writeLine(`→ ${packageName}: "${data}"`);
         }
     }
 }
@@ -149,7 +149,7 @@ class PostinstallReport {
         this.pkg = pkg;
     }
 
-    async report(pkgData, formatter) {
+    async report(pkgData, { stdoutFormatter }) {
         const postinstallPackages = new Map();
 
         pkgData.visit((pkg) => {
@@ -160,12 +160,12 @@ class PostinstallReport {
             }
         }, true);
 
-        formatter.writeLine(
+        stdoutFormatter.writeLine(
             `Postinstall scripts in the dependency tree of ${pkgData.fullName}: ${postinstallPackages.size}`
         );
 
         for (const [packageName, data] of postinstallPackages) {
-            formatter.writeLine(`→ ${packageName}: "${data}"`);
+            stdoutFormatter.writeLine(`→ ${packageName}: "${data}"`);
         }
     }
 }
