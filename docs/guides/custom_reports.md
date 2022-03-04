@@ -4,17 +4,15 @@ sidebar_position: 1
 
 # Using Custom Reports
 The `reports` command enables you to customize and extend the behavior of the package analyzer.
-In fact all provided commands of the CLI are `Reports` themselves, just that they are hardcoded to just do exactly this 1 thing.
+In fact all provided commands of the CLI are `Reports` themselves.
 
-So you can either use it to write completely new logic or reuse existing commands or mix and match.
-
-The JavaScript file that the `reports` command expects must look like this:
+It is consumed via a JavaScript file that exports a configuration object, in the simplest form it looks like this:
 ```javascript
 module.exports = {
     reports: [] //array of reports that you want to have run
 }
 ```
-## Analyze a package and print its dependency tree
+## Tutorial - Analyze a package and print its dependency tree
 For the sake of this tutorial we want to run the `analyze` command and `tree` command in 1 go:
 ```
 pkga analyze --package react
@@ -49,7 +47,7 @@ pkga report --config ./customReport.js
 ```
 It will print a summary of the package as well as its dependency tree
 
-## Custom Logic
+### Custom Logic
 For the sake of this tutorial we want to find all packages that execute a `postinstall` script.
 We will use a custom report for this.
 
@@ -201,7 +199,7 @@ npm config set ignore-scripts true
 yarn config set ignore-scripts true
 ```
 
-## Bonus
+### Bonus
 Now that we know which packages contain a `postinstall` script it would be nice to know how they got introduced aka print the dependency path.
 
 As always the packageanalyzer got you covered. `pkgData` contains a `parent` field which points to the parent dependency (it's `undefined` for the top level package).

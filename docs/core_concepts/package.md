@@ -45,13 +45,8 @@ you can simply write `getData("scripts.test")` to easily get the value of the `t
 
 ## Querying custom data
 Custom data can be attached via a [`Decorator`](./decorator.md).
-To retrieve it, the signature looks like this:
-```typescript
-    getDecoratorData<E extends IDecoratorStatic<any, []>>(decorators: E): DecoratorType<E>;
-```
-Which is a fancy way of describing to return an value based on a key.
-Each `Package` class contains a `Map` for custom data, the `Decorator` contains the key and this key is then used to save whatever data.
-To retrieve the data simply provide the key to the `getDecoratorData` method:
+
+To retrieve the data simply provide the key for that specific `Decorator` to the `getDecoratorData` method:
 ```typescript
     const data = getDecoratorData("decorator_key");
 ```
