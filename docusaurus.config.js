@@ -5,8 +5,8 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 module.exports = {
   title: 'packageanalyzer',
   tagline: 'A framework to introspect Node.js packages',
-  url: 'https://github.com',
-  baseUrl: '/tmkn/packageanalyzer/',
+  url: 'https://packageanalyzer-docs.vercel.app/',
+  baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
