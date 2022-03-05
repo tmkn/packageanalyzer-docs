@@ -92,7 +92,7 @@ module.exports = {
       {
         docs: {
           showLastUpdateTime: true,
-          showLastUpdateAuthor: true,
+          //showLastUpdateAuthor: true,
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           editUrl:

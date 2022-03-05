@@ -7,7 +7,7 @@ The `reports` command enables you to customize and extend the behavior of the pa
 In fact all provided commands of the CLI are `Reports` themselves.
 
 It is consumed via a JavaScript file that exports a configuration object, in the simplest form it looks like this:
-```javascript
+```typescript
 module.exports = {
     reports: [] //array of reports that you want to have run
 }
