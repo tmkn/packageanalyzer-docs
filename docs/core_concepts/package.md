@@ -43,7 +43,7 @@ You can use `.` notation, so given this sample `package.json`:
 ```
 you can simply write `getData("scripts.test")` to easily get the value of the `test` entry.
 
-## Querying custom data
+## Querying custom data {#querying-custom-data}
 Custom data can be attached via a [`Decorator`](./decorator.md).
 
 To retrieve the data simply provide the key for that specific `Decorator` to the `getDecoratorData` method:
