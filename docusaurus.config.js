@@ -13,6 +13,11 @@ module.exports = {
   organizationName: 'tmkn', // Usually your GitHub org/user name.
   projectName: 'packageanalyzer-docs', // Usually your repo name.
   themeConfig: {
+    algolia: {
+      appId: 'XSXSD2EE9P',
+      apiKey: 'e7f74acdb7de6b6b5b029c9dbfb3fa78',
+      indexName: 'packageanalyzer',
+    },
     announcementBar: {
       id: 'support_us', // Any value that will identify this message.
       content:
