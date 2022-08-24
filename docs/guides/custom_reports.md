@@ -57,7 +57,7 @@ class BasicReport {
     name = `Basic Report`; //basic name to associate the report
     pkg = [`react`]; //a tuple, will default to latest version use [`name`, `version`]
 
-    async report(pkgData, context) {
+    async report(context, pkgData) {
         //pkgData contains dependency tree metadata and utility functions
         //context contains formatters to output messages to stdin & stdou
 
@@ -115,7 +115,7 @@ class PostinstallReport {
     name = `Postinstall Report`;
     pkg = [`react`];
 
-    async report(pkgData, { stdoutFormatter }) {
+    async report({ stdoutFormatter }, pkgData) {
         const postinstallPackages = new Map();
 
         pkgData.visit((pkg) => {
@@ -147,7 +147,7 @@ class PostinstallReport {
         this.pkg = pkg;
     }
 
-    async report(pkgData, { stdoutFormatter }) {
+    async report({ stdoutFormatter }, pkgData) {
         const postinstallPackages = new Map();
 
         pkgData.visit((pkg) => {
