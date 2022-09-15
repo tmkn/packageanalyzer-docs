@@ -43,4 +43,4 @@ While those are very different questions, and how you answer them differ each ti
 
 ## How?
 
-Please refer to `Core Concepts` section for a more indepth explanation
+Please refer to [`Core Concepts`](./core_concepts/) section for a more indepth explanation

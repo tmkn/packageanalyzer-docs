@@ -15,9 +15,6 @@ It implements the following interface:
 export interface IPackageVersionProvider {
   //load version specific data, loads latest version if no version is specified
   getPackageByVersion: (...args: PackageVersion) => Promise<INpmPackageVersion>;
-  getPackagesByVersion: (
-    modules: PackageVersion[]
-  ) => AsyncIterableIterator<INpmPackageVersion>;
 }
 ```
 
