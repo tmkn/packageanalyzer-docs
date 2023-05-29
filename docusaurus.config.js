@@ -115,4 +115,12 @@ module.exports = {
       },
     ],
   ],
+  scripts: [
+    {
+      src: '/stats/js/script.js',
+      'data-api': '/stats/api/event',
+      'data-domain': 'packageanalyzer-docs.vercel.app',
+      async: true,
+    },
+  ],
 };
