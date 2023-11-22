@@ -6,9 +6,9 @@ The rules are configured in a config file of the following format:
 
 ```javascript title="lintConfig.js"
 module.exports = {
-  rules: [
-    // rules go here
-  ],
+    rules: [
+        // rules go here
+    ]
 };
 ```
 
@@ -34,8 +34,8 @@ If you don't return anything, it means the rule passed.
 
 ```typescript title="ILintRule"
 export interface ILintCheck<T = undefined> {
-  name: string; // name of the check
-  check: (pkg: Package, params: T) => string | string[] | void; // check callback
+    name: string; // name of the check
+    check: (pkg: Package, params: T) => string | string[] | void; // check callback
 }
 ```
 
@@ -45,18 +45,18 @@ If you throw an exception inside the lint logic, it will be caught and displayed
 
 ```javascript
 module.exports = {
-  rules: [
-    [
-      "warning",
-      {
-        name: `has-key`,
-        // @ts-ignore
-        check: (pkg, key) => {
-          throw new Error(`whoops`);
-        },
-      },
-    ],
-  ],
+    rules: [
+        [
+            "warning",
+            {
+                name: `has-key`,
+                // @ts-ignore
+                check: (pkg, key) => {
+                    throw new Error(`whoops`);
+                }
+            }
+        ]
+    ]
 };
 ```
 
@@ -70,19 +70,19 @@ Let's write a rule that checks if `description` is defined in the `package.json`
 
 ```javascript title="lintConfig.js"
 module.exports = {
-  rules: [
-    [
-      "warning",
-      {
-        name: `has-description`,
-        check: (pkg) => {
-          const description = pkg.getData("description");
+    rules: [
+        [
+            "warning",
+            {
+                name: `has-description`,
+                check: pkg => {
+                    const description = pkg.getData("description");
 
-          if (!description) return `No description found!`;
-        },
-      },
-    ],
-  ],
+                    if (!description) return `No description found!`;
+                }
+            }
+        ]
+    ]
 };
 ```
 
@@ -96,22 +96,22 @@ In that case we can provide the key as a parameter like so:
 
 ```javascript title="lintConfig.js"
 module.exports = {
-  rules: [
-    [
-      "warning",
-      {
-        name: `has-description`,
-        // highlight-next-line
-        check: (pkg, key) => {
-          const data = pkg.getData(key);
+    rules: [
+        [
+            "warning",
+            {
+                name: `has-description`,
+                // highlight-next-line
+                check: (pkg, key) => {
+                    const data = pkg.getData(key);
 
-          if (!data) return `Key "${key}" is missing in package.json`;
-        },
-      },
-      // highlight-next-line
-      "description",
-    ],
-  ],
+                    if (!data) return `Key "${key}" is missing in package.json`;
+                }
+            },
+            // highlight-next-line
+            "description"
+        ]
+    ]
 };
 ```
 
@@ -122,19 +122,19 @@ With this mechanism we can now pass in arbitrary key names allowing us to reuse 
 
 ```javascript title="lintConfig.js"
 const hasKey = {
-  name: `has-key`,
-  check: (pkg, key) => {
-    const data = pkg.getData(key);
+    name: `has-key`,
+    check: (pkg, key) => {
+        const data = pkg.getData(key);
 
-    if (!data) return `Key "${key}" is missing in package.json`;
-  },
+        if (!data) return `Key "${key}" is missing in package.json`;
+    }
 };
 
 module.exports = {
-  rules: [
-    ["warning", hasKey, "description"],
-    ["warning", hasKey, "license"],
-  ],
+    rules: [
+        ["warning", hasKey, "description"],
+        ["warning", hasKey, "license"]
+    ]
 };
 ```
 

@@ -43,12 +43,12 @@ You can use `.` notation, so given this sample `package.json`:
 
 ```json title="package.json"
 {
-  "name": "my_package",
-  "description": "",
-  "version": "1.0.0",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  }
+    "name": "my_package",
+    "description": "",
+    "version": "1.0.0",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    }
 }
 ```
 

@@ -11,7 +11,7 @@ It is consumed via a JavaScript file that exports a configuration object, in the
 
 ```typescript
 module.exports = {
-  reports: [], //array of reports that you want to have run
+    reports: [] //array of reports that you want to have run
 };
 ```
 
@@ -29,19 +29,19 @@ const { AnalyzeReport, TreeReport } = require("@tmkn/packageanalyzer"); //import
 
 //configure analyze report
 const analyzeReport = new AnalyzeReport({
-  package: `react`, //defaults to latest otherwise use `name@version`
-  type: `dependencies`, //or `devDependencies`
-  full: false, //only want a basic summary
+    package: `react`, //defaults to latest otherwise use `name@version`
+    type: `dependencies`, //or `devDependencies`
+    full: false //only want a basic summary
 });
 
 //configure tree report
 const treeReport = new TreeReport({
-  package: `react`,
-  type: `dependencies`,
+    package: `react`,
+    type: `dependencies`
 });
 
 module.exports = {
-  reports: [analyzeReport, treeReport],
+    reports: [analyzeReport, treeReport]
 };
 ```
 
@@ -62,18 +62,18 @@ A custom report is just a JavaScript class with at least the following things:
 
 ```javascript
 class BasicReport {
-  name = `Basic Report`; //basic name to associate the report
-  pkg = [`react`]; //a tuple, will default to latest version use [`name`, `version`]
+    name = `Basic Report`; //basic name to associate the report
+    pkg = [`react`]; //a tuple, will default to latest version use [`name`, `version`]
 
-  async report(context, pkgData) {
-    //pkgData contains dependency tree metadata and utility functions
-    //context contains formatters to output messages to stdin & stdou
+    async report(context, pkgData) {
+        //pkgData contains dependency tree metadata and utility functions
+        //context contains formatters to output messages to stdin & stdou
 
-    //your custom logic here
-    context.stdoutFormatter.writeLine(
-      `Hello from my first report analyzing ${pkgData.fullName}`
-    );
-  }
+        //your custom logic here
+        context.stdoutFormatter.writeLine(
+            `Hello from my first report analyzing ${pkgData.fullName}`
+        );
+    }
 }
 ```
 
@@ -93,8 +93,8 @@ To see whether a `postinstall` script is defined we need to check if a `scripts.
 To loop through the dependency tree we can use the `visit` method in `pkgData`:
 
 ```javascript
-pkgData.visit((pkg) => {
-  //loop through dependency tree
+pkgData.visit(pkg => {
+    //loop through dependency tree
 }, true);
 ```
 
@@ -110,7 +110,7 @@ Then we just need to check if we got something back, if yes, add it to the `post
 
 ```javascript
 if (postinstallData) {
-  postinstallPackages.set(pkg.fullName, postinstallData);
+    postinstallPackages.set(pkg.fullName, postinstallData);
 }
 ```
 
@@ -118,11 +118,11 @@ Then after we _visited_ all packages, we print out the results:
 
 ```javascript
 stdoutFormatter.writeLine(
-  `Postinstall scripts in the dependency tree of ${pkgData.fullName}: ${postinstallPackages.size}`
+    `Postinstall scripts in the dependency tree of ${pkgData.fullName}: ${postinstallPackages.size}`
 );
 
 for (const [packageName, data] of postinstallPackages) {
-  stdoutFormatter.writeLine(`→ ${packageName}: "${data}"`);
+    stdoutFormatter.writeLine(`→ ${packageName}: "${data}"`);
 }
 ```
 
@@ -130,28 +130,28 @@ All combined the final custom report could look like this:
 
 ```javascript
 class PostinstallReport {
-  name = `Postinstall Report`;
-  pkg = [`react`];
+    name = `Postinstall Report`;
+    pkg = [`react`];
 
-  async report({ stdoutFormatter }, pkgData) {
-    const postinstallPackages = new Map();
+    async report({ stdoutFormatter }, pkgData) {
+        const postinstallPackages = new Map();
 
-    pkgData.visit((pkg) => {
-      const postinstallData = pkg.getData("scripts.postinstall");
+        pkgData.visit(pkg => {
+            const postinstallData = pkg.getData("scripts.postinstall");
 
-      if (postinstallData) {
-        postinstallPackages.set(pkg.fullName, postinstallData);
-      }
-    }, true);
+            if (postinstallData) {
+                postinstallPackages.set(pkg.fullName, postinstallData);
+            }
+        }, true);
 
-    stdoutFormatter.writeLine(
-      `Postinstall scripts in the dependency tree of ${pkgData.fullName}: ${postinstallPackages.size}`
-    );
+        stdoutFormatter.writeLine(
+            `Postinstall scripts in the dependency tree of ${pkgData.fullName}: ${postinstallPackages.size}`
+        );
 
-    for (const [packageName, data] of postinstallPackages) {
-      stdoutFormatter.writeLine(`→ ${packageName}: "${data}"`);
+        for (const [packageName, data] of postinstallPackages) {
+            stdoutFormatter.writeLine(`→ ${packageName}: "${data}"`);
+        }
     }
-  }
 }
 ```
 
@@ -159,31 +159,31 @@ But that's not very useful as it's hardcoded to React so lets fix that:
 
 ```javascript
 class PostinstallReport {
-  name = `Postinstall Report`;
+    name = `Postinstall Report`;
 
-  constructor(pkg) {
-    this.pkg = pkg;
-  }
-
-  async report({ stdoutFormatter }, pkgData) {
-    const postinstallPackages = new Map();
-
-    pkgData.visit((pkg) => {
-      const postinstallData = pkg.getData("scripts.postinstall");
-
-      if (postinstallData) {
-        postinstallPackages.set(pkg.fullName, postinstallData);
-      }
-    }, true);
-
-    stdoutFormatter.writeLine(
-      `Postinstall scripts in the dependency tree of ${pkgData.fullName}: ${postinstallPackages.size}`
-    );
-
-    for (const [packageName, data] of postinstallPackages) {
-      stdoutFormatter.writeLine(`→ ${packageName}: "${data}"`);
+    constructor(pkg) {
+        this.pkg = pkg;
     }
-  }
+
+    async report({ stdoutFormatter }, pkgData) {
+        const postinstallPackages = new Map();
+
+        pkgData.visit(pkg => {
+            const postinstallData = pkg.getData("scripts.postinstall");
+
+            if (postinstallData) {
+                postinstallPackages.set(pkg.fullName, postinstallData);
+            }
+        }, true);
+
+        stdoutFormatter.writeLine(
+            `Postinstall scripts in the dependency tree of ${pkgData.fullName}: ${postinstallPackages.size}`
+        );
+
+        for (const [packageName, data] of postinstallPackages) {
+            stdoutFormatter.writeLine(`→ ${packageName}: "${data}"`);
+        }
+    }
 }
 ```
 
@@ -194,10 +194,10 @@ So instead lets look at `@okta/okta-auth-js`:
 
 ```javascript title="customReport.js"
 module.exports = {
-  reports: [
-    new PostinstallReport([`@okta/okta-auth-js` /*, `5.1.0`*/]),
-    //etc
-  ],
+    reports: [
+        new PostinstallReport([`@okta/okta-auth-js` /*, `5.1.0`*/])
+        //etc
+    ]
 };
 ```
 
@@ -249,7 +249,7 @@ Then we just call it here:
 
 ```javascript
 if (postinstallData) {
-  postinstallPackages.set(this.path(pkg), postinstallData);
+    postinstallPackages.set(this.path(pkg), postinstallData);
 }
 ```
 

@@ -8,9 +8,9 @@ At its core the `Decorator` must match an object with the following shape:
 
 ```typescript
 interface IDecorator<T> {
-  readonly key: string;
-  readonly name: string;
-  apply: (args: IApplyArgs) => Promise<T>;
+    readonly key: string;
+    readonly name: string;
+    apply: (args: IApplyArgs) => Promise<T>;
 }
 ```
 
@@ -34,8 +34,8 @@ It gets called with an argument with the following shape:
 
 ```typescript
 export interface IApplyArgs {
-  p: Package; //The current Package
-  logger: (msg: string) => void; //Method to log messages
+    p: Package; //The current Package
+    logger: (msg: string) => void; //Method to log messages
 }
 ```
 
@@ -80,13 +80,11 @@ class DependencyDepthDecorator {
 
 ```javascript
 try {
-  const { depth } = p.getDecoratorData("depthdecorator"); //key needs to match
+    const { depth } = p.getDecoratorData("depthdecorator"); //key needs to match
 
-  console.log(
-    `Dependency ${p.fullName} was found at depth ${depth} in the dependency tree`
-  );
-  //e.g "Dependency foo@1.2.3 was found at depth 3 in the dependency tree"
+    console.log(`Dependency ${p.fullName} was found at depth ${depth} in the dependency tree`);
+    //e.g "Dependency foo@1.2.3 was found at depth 3 in the dependency tree"
 } catch {
-  //depth data couldn't be found
+    //depth data couldn't be found
 }
 ```

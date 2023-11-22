@@ -12,9 +12,9 @@ This rule allows you to validate entries (keys) in a `package.json`. Either simp
 type ValidateKeyParams = string | IValidateKeyConfig;
 
 interface IValidateKeyConfig {
-  key: string;
-  validator: (value: unknown) => boolean;
-  message?: string;
+    key: string;
+    validator: (value: unknown) => boolean;
+    message?: string;
 }
 ```
 
@@ -28,7 +28,7 @@ This will issue a warning whenever no `description` is found in the `package.jso
 const { ValidateKey } = require("@tmkn/packageanalyzer");
 
 module.exports = {
-  rules: [["warning", new ValidateKey(), "description"]],
+    rules: [["warning", new ValidateKey(), "description"]]
 };
 ```
 
