@@ -13,8 +13,8 @@ It implements the following interface:
 
 ```typescript
 export interface IPackageVersionProvider {
-  //load version specific data, loads latest version if no version is specified
-  getPackageByVersion: (...args: PackageVersion) => Promise<INpmPackageVersion>;
+    //load version specific data, loads latest version if no version is specified
+    getPackageByVersion: (...args: PackageVersion) => Promise<INpmPackageVersion>;
 }
 ```
 

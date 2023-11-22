@@ -1,8 +1,10 @@
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+import type {Config} from '@docusaurus/types';
+import type * as Preset from '@docusaurus/preset-classic';
 
-/** @type {import('@docusaurus/types').DocusaurusConfig} */
-module.exports = {
+const lightCodeTheme = require('prism-react-renderer').themes.github;
+const darkCodeTheme = require('prism-react-renderer').themes.dracula;
+
+const config: Config = {
   title: 'packageanalyzer',
   tagline: 'A framework to introspect Node.js packages',
   url: 'https://packageanalyzer-docs.vercel.app/',
@@ -90,7 +92,7 @@ module.exports = {
       theme: lightCodeTheme,
       darkTheme: darkCodeTheme,
     },
-  },
+  } satisfies Preset.ThemeConfig,
   presets: [
     [
       '@docusaurus/preset-classic',
@@ -98,7 +100,7 @@ module.exports = {
         docs: {
           showLastUpdateTime: true,
           //showLastUpdateAuthor: true,
-          sidebarPath: require.resolve('./sidebars.js'),
+          sidebarPath: require.resolve('./sidebars.ts'),
           // Please change this to your repo.
           editUrl:
             'https://github.com/tmkn/packageanalyzer-docs/edit/master/',
@@ -112,7 +114,7 @@ module.exports = {
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
-      },
+      } satisfies Preset.Options,
     ],
   ],
   scripts: [
@@ -124,3 +126,5 @@ module.exports = {
     },
   ],
 };
+
+export default config;

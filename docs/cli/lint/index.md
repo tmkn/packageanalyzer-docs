@@ -16,20 +16,20 @@ A sample config file could look like this:
 
 ```javascript title="lintConfig.js"
 module.exports = {
-  rules: [
-    // checks go here
-    [
-      "warning", // warning | error
-      {
-        name: `sample-check`,
-        check: (pkg) => {
-          const description = pkg.getData("description");
+    rules: [
+        // checks go here
+        [
+            "warning", // warning | error
+            {
+                name: `sample-check`,
+                check: pkg => {
+                    const description = pkg.getData("description");
 
-          if (!description) return `No description found!`;
-        },
-      },
-    ],
-  ],
+                    if (!description) return `No description found!`;
+                }
+            }
+        ]
+    ]
 };
 ```
 
