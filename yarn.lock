@@ -2306,10 +2306,25 @@
   resolved "https://registry.yarnpkg.com/@docusaurus/tsconfig/-/tsconfig-3.3.0.tgz#75a5cde99f9df3597392c34bf24f5e574d318a21"
   integrity sha512-Nw2usD0xLb/em0u9DzZFhmE0AJ3avyW8t9ZrX5HBq4PEDJavJD4+27wFu+YKm5imFbq6kW2zOZU33y//hjkaLA==
 
-"@docusaurus/types@3.3.0", "@docusaurus/types@^3.3.0":
+"@docusaurus/types@3.3.0":
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/@docusaurus/types/-/types-3.3.0.tgz#9219e58a4402238e2edec7d105b69e47e3358e59"
   integrity sha512-jbuXyrSGY7Pn7vnYvbKapH3rzSMT9Msv3Vyu2wU6xXOCml8cr4TmczyNpDg8cbV1fUAZJVjkTpiBBE/5CVqCEw==
+  dependencies:
+    "@mdx-js/mdx" "^3.0.0"
+    "@types/history" "^4.7.11"
+    "@types/react" "*"
+    commander "^5.1.0"
+    joi "^17.9.2"
+    react-helmet-async "^1.3.0"
+    utility-types "^3.10.0"
+    webpack "^5.88.1"
+    webpack-merge "^5.9.0"
+
+"@docusaurus/types@^3.3.2":
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/@docusaurus/types/-/types-3.3.2.tgz#0e17689512b22209a98f22ee80ac56899e94d390"
+  integrity sha512-5p201S7AZhliRxTU7uMKtSsoC8mgPA9bs9b5NQg1IRdRxJfflursXNVsgc3PcMqiUTul/v1s3k3rXXFlRE890w==
   dependencies:
     "@mdx-js/mdx" "^3.0.0"
     "@types/history" "^4.7.11"
