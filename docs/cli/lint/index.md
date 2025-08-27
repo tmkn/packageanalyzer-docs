@@ -10,19 +10,19 @@ If an `error` is encountered the lint process will exit with a non 0 status code
 
 ## Config File
 
-The checks are defined in a `javascript` file that needs to be passed to the `lint` command.
+The checks are defined in a config file that needs to be passed to the `lint` command. This file can be a JavaScript or a TypeScript file.
 
-A sample config file could look like this:
+A sample config file in TypeScript could look like this:
 
-```javascript title="lintConfig.js"
-module.exports = {
+```typescript title="lintConfig.ts"
+const config = {
     rules: [
         // checks go here
         [
-            "warning", // warning | error
+            "warning", // "warning" | "error"
             {
                 name: `sample-check`,
-                check: pkg => {
+                check: (pkg: any) => {
                     const description = pkg.getData("description");
 
                     if (!description) return `No description found!`;
@@ -31,43 +31,45 @@ module.exports = {
         ]
     ]
 };
+
+export default config;
 ```
 
-This will surface all dependencies that don't contain a `description` as `warning`;
+This will surface all dependencies that don't contain a `description` as `warning`.
 
 For a more in depth explanation on how to write checks please see [this guide](../../guides/lint_rules.md).
 
 ## Options
 
-| Argument             | Description                                                                        |
-| -------------------- | ---------------------------------------------------------------------------------- |
-| `--package`          | package to run the checks on, defaults to latest version if no version is provided |
-| `--folder`           | path to folder that contains a local `packagejson`                                 |
-| `--depth`            | depth to evaluate, if ommitted will traverse the whole dependency tree             |
-| `$path/to/config.js` | path to the config file that contains the checks                                   |
+| Argument    | Description                                                                             |
+| ----------- | --------------------------------------------------------------------------------------- |
+| `lintFile`  | Path to the config file that contains the checks.                                       |
+| `--package` | Package to run the checks on. Defaults to the latest version if no version is provided. |
+| `--folder`  | Path to a folder that contains a local `package.json`.                                  |
+| `--depth`   | Depth to evaluate. If omitted, it will traverse the whole dependency tree.              |
 
 ## Example Usages
 
 ### Lint whole dependency tree of latest React version
 
 ```
-pkga lint --package react ./path/to/config.js
+pkga lint ./path/to/lintConfig.ts --package react
 ```
 
 ### Lint React only with specific version
 
 ```
-pkga lint --package react@16.10.2 --depth 0 ./path/to/config.js
+pkga lint ./path/to/lintConfig.ts --package react@16.10.2 --depth 0
 ```
 
 ### Lint local project
 
 ```
-pkga lint --folder ./path/to/project ./path/to/config.js
+pkga lint ./path/to/lintConfig.ts --folder ./path/to/project
 ```
 
 ## Rules
 
-Currently there's only 1 built in rule, namely the [`Validate Key`](./rule_key_check.md) rule. This rule allows you to check for the existence of certain keys in the `package.json`. Additionally a custom validator can be also provided for more sophisticated checks.
+Currently there's only 1 built-in rule, namely the [`Validate Key`](./rule_key_check.md) rule. This rule allows you to check for the existence of certain keys in the `package.json`. Additionally, a custom validator can be also provided for more sophisticated checks.
 
 To write custom rules please see [this guide](../../guides/lint_rules.md).

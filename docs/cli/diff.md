@@ -6,7 +6,7 @@
 
 The `diff` option lets you compare the dependency tree of 2 packages.
 
-Useful if you want to see which packages got updated, added or removed.
+Useful if you want to see which packages got updated, added or removed between two versions.
 
 ```
 pkga diff --range react@16.12.0 react@18.2.0
@@ -16,9 +16,10 @@ This command will show a diff of the dependency tree between `react@16.12.0` and
 
 ## Options
 
-| Argument           | Description                                                                                                                  |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
-| `--diff $from $to` | compares the dependency tree of `$from` with `$to`.<br />`$to` is optional, it will default to the latest version of `$from` |
+| Argument                | Description                                                                                                     |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `--range <pkg1> <pkg2>` | The two packages to compare. Can be a package name with version, or just a package name for the latest version. |
+| `--type`                | Which type of dependencies to traverse: `dependencies` or `devDependencies`. Defaults to `dependencies`.        |
 
 ## Example Usages
 
@@ -32,10 +33,16 @@ pkga diff --range react@16.12.0 react@18.2.0
 
 ### Show diff with latest version
 
-Compare dependencies of `react@16.12.0` with the latest version of `react` at the time:
+Compare dependencies of `react@16.12.0` with the latest version of `react`:
 
 ```
-pkga diff --range react@16.12.0
+pkga diff --range react@16.12.0 react
 ```
 
-If you omit the end range it will default to the latest version.
+### Show diff for devDependencies
+
+Compare devDependencies of `react@16.12.0` with `react@18.2.0`:
+
+```
+pkga diff --range react@16.12.0 react@18.2.0 --type devDependencies
+```

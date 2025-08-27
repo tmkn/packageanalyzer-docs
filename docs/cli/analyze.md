@@ -4,7 +4,7 @@
 
 ## Introduction
 
-The `analyze` option lets you quickly introspect a particular Node.js package, e.g.:
+The `analyze` option lets you quickly introspect a particular Node.js package or a local project, e.g.:
 
 ```
 pkga analyze --package react
@@ -18,8 +18,8 @@ This command will introspect the latest version of `react`.
 | ----------- | -------------------------------------------------------------------------------------------------------- |
 | `--package` | name of package to analyze e.g. `react@17.0.2`, will default to latest version if no version is provided |
 | `--folder`  | path to a local `package.json` on the filesystem                                                         |
-| `--type`    | Which type of dependencies to traverse `dependencies` or `devDependencies`, defaults to `dependencies`   |
-| `--full`    | Show additional information, like oldest/newest package                                                  |
+| `--type`    | Which type of dependencies to traverse: `dependencies` or `devDependencies`. Defaults to `dependencies`. |
+| `--full`    | Show additional information, like oldest/newest package.                                                 |
 
 ## Example Usages
 
@@ -34,6 +34,18 @@ pkga analyze --package react@17.0.2
 ```bash
 #omit version to default to latest version
 pkga analyze --package react
+```
+
+### Analyze devDependencies
+
+```bash
+pkga analyze --package react --type devDependencies
+```
+
+### Analyze with full details
+
+```bash
+pkga analyze --package react --full
 ```
 
 ### Analyze a local project

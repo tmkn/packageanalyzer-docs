@@ -1,14 +1,23 @@
 # Writing custom lint rules
 
-You can extend the [`lint`](../cli/lint/index.md) command with custom lint rules.
+The [`lint`](../cli/lint/index.md) command takes lint rules as input.
 
-The rules are configured in a config file of the following format:
+The rules are configured in a config file. This can be a JavaScript or a TypeScript file.
 
-```javascript title="lintConfig.js"
-module.exports = {
-    rules: [
-        // rules go here
-    ]
+```typescript title="lintConfig.ts"
+import type { ILintCheck } from "@tmkn/packageanalyzer";
+
+const hasDescriptionCheck: ILintCheck = {
+    name: `has-description`,
+    check: (pkg: any) => {
+        const description = pkg.getData("description");
+
+        if (!description) return `No description found!`;
+    }
+};
+
+export default {
+    rules: [["warning", hasDescriptionCheck]]
 };
 ```
 
@@ -17,131 +26,106 @@ module.exports = {
 The `rules` array contains tuples of the following format:
 
 ```typescript
-type Rule = ["warning" | "error", ILintCheck];
+type Rule = ["warning" | "error", ILintCheck, any?];
 ```
 
-The difference between `warning` and `error` is that `error` will exit with an error code > 0 making it suitable to run in CI environments.
+The first element is the severity (`warning` or `error`). The second element is the lint check itself. The optional third element is for parameters.
+
+The difference between `warning` and `error` is that `error` will exit with an error code > 0, making it suitable to run in CI environments.
 
 ## `ILintCheck` Interface
 
 The `ILintCheck` interface defines the actual logic for a given rule. It is called for every package in the dependency tree.
 
-It gets the current package `pkg` and any defined `params`;
+```typescript title="ILintCheck"
+import type { ZodType } from "zod";
 
-To report a violation simply return a `string` or `string[]`;
-
-If you don't return anything, it means the rule passed.
-
-```typescript title="ILintRule"
-export interface ILintCheck<T = undefined> {
-    name: string; // name of the check
-    check: (pkg: Package, params: T) => string | string[] | void; // check callback
+export interface ILintCheck<T = any> {
+    name: string;
+    check: (pkg: any, params: T) => string | string[] | void | Promise<string | string[] | void>;
+    checkParams?: () => ZodType<T>;
+    attachments?: any;
 }
 ```
 
-## Throwing exceptions
+- `name`: The name of the check.
+- `check`: The function that performs the lint check. It receives the current package `pkg` and any defined `params`. To report a violation, simply return a `string` or `string[]`. If you don't return anything, it means the rule passed.
+- `checkParams` (optional): A function that returns a `zod` schema for validating the parameters passed to the `check` function.
+- `attachments` (optional): An object defining any attachments that need to be resolved before the `check` function is called.
 
-If you throw an exception inside the lint logic, it will be caught and displayed as `internal-error`. The exit code will also be set to > 0 even if all checks where `warnings`.
+## Using Parameters and `checkParams`
 
-```javascript
-module.exports = {
-    rules: [
-        [
-            "warning",
-            {
-                name: `has-key`,
-                // @ts-ignore
-                check: (pkg, key) => {
-                    throw new Error(`whoops`);
-                }
-            }
-        ]
-    ]
-};
-```
+You can make your rules more flexible by using parameters. The parameters are passed as the third element in the rule tuple.
 
-![lint exception](./lintexception.jpg)
+To ensure type safety and to validate the parameters, you can use the `checkParams` method. This method should return a `zod` schema.
 
-## A first rule
+Here's an example of a generic `has-key` rule that checks for the existence of a given key in `package.json`:
 
-### Basic
+```typescript title="lintConfig.ts"
+import { z } from "zod";
+import type { ILintCheck } from "@tmkn/packageanalyzer";
 
-Let's write a rule that checks if `description` is defined in the `package.json`:
-
-```javascript title="lintConfig.js"
-module.exports = {
-    rules: [
-        [
-            "warning",
-            {
-                name: `has-description`,
-                check: pkg => {
-                    const description = pkg.getData("description");
-
-                    if (!description) return `No description found!`;
-                }
-            }
-        ]
-    ]
-};
-```
-
-That's all you need to write a simple lint rule. Please see here which methods are available on the [`pkg`](../core_concepts/package.md) object.
-
-### Using parameters
-
-While the above rule certainly works, it's pretty hardcoded, you don't want to repeat that logic if you want to check for the `license`.
-
-In that case we can provide the key as a parameter like so:
-
-```javascript title="lintConfig.js"
-module.exports = {
-    rules: [
-        [
-            "warning",
-            {
-                name: `has-description`,
-                // highlight-next-line
-                check: (pkg, key) => {
-                    const data = pkg.getData(key);
-
-                    if (!data) return `Key "${key}" is missing in package.json`;
-                }
-            },
-            // highlight-next-line
-            "description"
-        ]
-    ]
-};
-```
-
-Notice the 2nd parameter named `key` in the `check` function.
-
-The 3rd argument in our rule tuple is reserved for parameters that we want to pass into the `check` function.
-With this mechanism we can now pass in arbitrary key names allowing us to reuse the rule to check multiple keys:
-
-```javascript title="lintConfig.js"
-const hasKey = {
+const hasKeyCheck: ILintCheck<string> = {
     name: `has-key`,
-    check: (pkg, key) => {
+    checkParams: () => z.string(),
+    check: (pkg: any, key) => {
         const data = pkg.getData(key);
 
         if (!data) return `Key "${key}" is missing in package.json`;
     }
 };
 
-module.exports = {
+export default {
     rules: [
-        ["warning", hasKey, "description"],
-        ["warning", hasKey, "license"]
+        ["warning", hasKeyCheck, "description"],
+        ["error", hasKeyCheck, "license"]
     ]
 };
 ```
 
-Now we can easily check for the existence of `description` and `license` key in the `package.json`.
+## Using Attachments with Lint Rules
 
-If we run it for `webpack@5.83.1` we get the following output:
+Attachments allow you to fetch additional data and use it in your lint checks. You can define the attachments a rule needs using the `attachments` property in the `ILintCheck` object.
 
-![lint example](./lintrule.jpg)
+The `packageanalyzer` will ensure that the attachments are resolved before the `check` function is called. You can then access the attachment data using the `getAttachmentData` method on the `pkg` object.
 
-2 packages in the dependency tree are missing descriptions!
+Here's an example of a rule that uses an attachment to check the weekly download count of a package from the npm API:
+
+```typescript title="lintConfig.ts"
+import type { ILintCheck, AttachmentFn } from "@tmkn/packageanalyzer";
+
+interface INpmDownloadsData {
+    downloads: number;
+}
+
+const npmDownloadsAttachment: AttachmentFn<INpmDownloadsData> = async ({ p, logger }) => {
+    const url = `https://api.npmjs.org/downloads/point/last-week/${p.name}`;
+    logger(`Fetching download count from ${url}`);
+    const response = await fetch(url);
+    const data = await response.json();
+
+    return data;
+};
+
+const popularPackageCheck: ILintCheck = {
+    name: `popular-package-check`,
+    attachments: {
+        npmDownloads: npmDownloadsAttachment
+    },
+    check: (pkg: any) => {
+        const { npmDownloads } = pkg.getAttachmentData();
+
+        if (npmDownloads.downloads < 1000) {
+            return `Package has less than 1000 downloads in the last week`;
+        }
+    }
+};
+
+export default {
+    rules: [["warning", popularPackageCheck]]
+};
+```
+
+## Throwing exceptions
+
+If you throw an exception inside the lint logic, it will be caught and displayed as `internal-error`. The exit code will also be set to > 0, even if all checks were `warnings`.
