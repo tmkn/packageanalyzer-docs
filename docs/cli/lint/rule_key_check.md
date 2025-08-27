@@ -1,12 +1,14 @@
 # Lint Rule: Validate Key
 
-```javascript
+```typescript
 import { ValidateKey } from "@tmkn/packageanalyzer";
 ```
 
-This rule allows you to validate entries (keys) in a `package.json`. Either simply check if the key exists or provide a custom validator for more fine grained validation.
+This rule allows you to validate entries (keys) in a `package.json`. You can either check if the key exists or provide a custom validator for more fine grained validation.
 
 ## Configuration Parameters
+
+The `ValidateKey` rule accepts a parameter of type `ValidateKeyParams`, which can be either a `string` or an `IValidateKeyConfig` object.
 
 ```typescript
 type ValidateKeyParams = string | IValidateKeyConfig;
@@ -18,37 +20,42 @@ interface IValidateKeyConfig {
 }
 ```
 
+This parameter is passed as the third element in the rule tuple in your lint config file.
+
 ## Example Usage
 
 ### Check if key exists
 
-This will issue a warning whenever no `description` is found in the `package.json`.
+This will issue a warning whenever the `description` key is not found in the `package.json`. The key to check for is passed as the third element in the rule tuple.
 
-```javascript title="lintConfig.js"
-const { ValidateKey } = require("@tmkn/packageanalyzer");
+```typescript title="lintConfig.ts"
+import { ValidateKey } from "@tmkn/packageanalyzer";
 
-module.exports = {
+export default {
     rules: [["warning", new ValidateKey(), "description"]]
 };
 ```
 
 ### Use a custom validator
 
-This uses a custom validator to verify that the `description` is a string. If not an `error` will be issued.
+This uses a custom validator to verify that the `description` is a string. If not, an `error` will be issued.
 
-The validator must return a boolean, `true` means validation passed, `false` means validation failed.
+The validator must return a boolean, `true` means the validation passed, `false` means it failed.
 
-```javascript title="lintConfig.js"
-const { ValidateKey } = require("@tmkn/packageanalyzer");
+```typescript title="lintConfig.ts"
+import { ValidateKey } from "@tmkn/packageanalyzer";
 
-module.exports = {
+export default {
     rules: [
-        ["warning", new ValidateKey(), {
-            key: "description",
-            validator: (value) => typeof value === "string"
-            message: "description is not a string"  // optionally provide a custom error message
-        }]
+        [
+            "error",
+            new ValidateKey(),
+            {
+                key: "description",
+                validator: (value: unknown) => typeof value === "string",
+                message: "description is not a string" // optionally provide a custom error message
+            }
+        ]
     ]
 };
-
 ```
