@@ -8,11 +8,11 @@ The rules are configured in a config file. This can be a JavaScript or a TypeScr
 import type { ILintCheck } from "@tmkn/packageanalyzer";
 
 const hasDescriptionCheck: ILintCheck = {
-    name: `has-description`,
-    check: (pkg: any) => {
+    name: "has-description",
+    check: pkg => {
         const description = pkg.getData("description");
 
-        if (!description) return `No description found!`;
+        if (!description) return "No description found!";
     }
 };
 
@@ -66,9 +66,9 @@ import { z } from "zod";
 import type { ILintCheck } from "@tmkn/packageanalyzer";
 
 const hasKeyCheck: ILintCheck<string> = {
-    name: `has-key`,
+    name: "has-key",
     checkParams: () => z.string(),
-    check: (pkg: any, key) => {
+    check: (pkg, key) => {
         const data = pkg.getData(key);
 
         if (!data) return `Key "${key}" is missing in package.json`;
@@ -108,15 +108,15 @@ const npmDownloadsAttachment: AttachmentFn<INpmDownloadsData> = async ({ p, logg
 };
 
 const popularPackageCheck: ILintCheck = {
-    name: `popular-package-check`,
+    name: "popular-package-check",
     attachments: {
         npmDownloads: npmDownloadsAttachment
     },
-    check: (pkg: any) => {
+    check: pkg => {
         const { npmDownloads } = pkg.getAttachmentData();
 
         if (npmDownloads.downloads < 1000) {
-            return `Package has less than 1000 downloads in the last week`;
+            return "Package has less than 1000 downloads in the last week";
         }
     }
 };

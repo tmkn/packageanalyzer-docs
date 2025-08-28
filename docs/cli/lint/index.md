@@ -4,9 +4,9 @@
 
 ## Introduction
 
-The `lint` option lets you define and run checks on the dependency tree.
+The `lint` command lets you define and run checks on the dependency tree.
 
-If an `error` is encountered the lint process will exit with a non 0 status code.
+If an `error` is encountered, the lint process will exit with a non-zero status code.
 
 ## Config File
 
@@ -15,29 +15,27 @@ The checks are defined in a config file that needs to be passed to the `lint` co
 A sample config file in TypeScript could look like this:
 
 ```typescript title="lintConfig.ts"
-const config = {
-    rules: [
-        // checks go here
-        [
-            "warning", // "warning" | "error"
-            {
-                name: `sample-check`,
-                check: (pkg: any) => {
-                    const description = pkg.getData("description");
+import type { ILintCheck } from "@tmkn/packageanalyzer";
 
-                    if (!description) return `No description found!`;
-                }
-            }
-        ]
-    ]
+const hasDescriptionCheck: ILintCheck = {
+    name: "has-description",
+    check: pkg => {
+        const description = pkg.getData("description");
+
+        if (!description) return "No description found!";
+    }
 };
 
-export default config;
+export default {
+    rules: [
+        ["warning", hasDescriptionCheck] // "warning" | "error"
+    ]
+};
 ```
 
 This will surface all dependencies that don't contain a `description` as `warning`.
 
-For a more in depth explanation on how to write checks please see [this guide](../../guides/lint_rules.md).
+For a more in-depth explanation on how to write checks please see [this guide](../../guides/lint_rules.md).
 
 ## Options
 
@@ -52,24 +50,24 @@ For a more in depth explanation on how to write checks please see [this guide](.
 
 ### Lint whole dependency tree of latest React version
 
-```
+```bash
 pkga lint ./path/to/lintConfig.ts --package react
 ```
 
 ### Lint React only with specific version
 
-```
+```bash
 pkga lint ./path/to/lintConfig.ts --package react@16.10.2 --depth 0
 ```
 
 ### Lint local project
 
-```
+```bash
 pkga lint ./path/to/lintConfig.ts --folder ./path/to/project
 ```
 
 ## Rules
 
-Currently there's only 1 built-in rule, namely the [`Validate Key`](./rule_key_check.md) rule. This rule allows you to check for the existence of certain keys in the `package.json`. Additionally, a custom validator can be also provided for more sophisticated checks.
+Currently there's only 1 built-in rule, namely the [`Validate Key`](./rule_key_check.md) rule. This rule allows you to check for the existence of certain keys in the `package.json`. Additionally, a custom validator can also be provided for more sophisticated checks.
 
 To write custom rules please see [this guide](../../guides/lint_rules.md).

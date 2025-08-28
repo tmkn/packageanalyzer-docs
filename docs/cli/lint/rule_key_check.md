@@ -4,7 +4,7 @@
 import { ValidateKey } from "@tmkn/packageanalyzer";
 ```
 
-This rule allows you to validate entries (keys) in a `package.json`. Either simply check if the key exists or provide a custom validator for more fine grained validation.
+This rule allows you to validate entries (keys) in a `package.json`. You can either simply check if the key exists or provide a custom validator for more fine-grained validation.
 
 ## Configuration Parameters
 
@@ -40,7 +40,7 @@ export default {
 
 This uses a custom validator to verify that the `description` is a string. If not, an `error` will be issued.
 
-The validator must return a boolean, `true` means validation passed, `false` means validation failed.
+The validator must return a boolean: `true` means validation passed, `false` means validation failed.
 
 ```typescript title="lintConfig.ts"
 import { ValidateKey } from "@tmkn/packageanalyzer";
