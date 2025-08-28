@@ -1,8 +1,8 @@
-import type {Config} from '@docusaurus/types';
-import type * as Preset from '@docusaurus/preset-classic';
+import type { Config } from "@docusaurus/types";
+import type * as Preset from "@docusaurus/preset-classic";
 
-const lightCodeTheme = require('prism-react-renderer').themes.github;
-const darkCodeTheme = require('prism-react-renderer').themes.dracula;
+const lightCodeTheme = require("prism-react-renderer").themes.github;
+const darkCodeTheme = require("prism-react-renderer").themes.dracula;
 
 const config: Config = {
     title: "packageanalyzer",
@@ -23,7 +23,7 @@ const config: Config = {
         announcementBar: {
             id: "support_us", // Any value that will identify this message.
             content:
-                "As the packageanalyzer is currently a work in progress, the documentation might not be up to date in all areas!",
+                "The packageanalyzer is under active development. Some documentation may be incomplete or outdated.",
             backgroundColor: "#03a9f4", // Defaults to `#fff`.
             textColor: "white", // Defaults to `#000`.
             isCloseable: true // Defaults to `true`.
